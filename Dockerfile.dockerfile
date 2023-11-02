@@ -1,20 +1,18 @@
 # Use the official Node.js image as the base image
 FROM node:18
 
+RUN mkdir /root/app
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /root/app
 
 # Copy the application files into the working directory
-COPY . /app
+COPY . /root/app
 
 # Install the application dependencies
-RUN npm install
-
-# Build the React application
-RUN npm run build
+RUN npm install -g serve
 
 # Expose port 3000
 EXPOSE 3000
 
 # Define the entry point for the container
-CMD ["npm", "start"]
+CMD serve -s build
